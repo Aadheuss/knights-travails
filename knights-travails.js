@@ -97,8 +97,6 @@ const Game = () => {
   const chestBoard = createChestBoard();
   let knight = [7, 1];
 
-  const q = [];
-
   function knightMoves(
     startingPoint,
     destination,
@@ -108,6 +106,9 @@ const Game = () => {
     if (startingPoint === null) {
       return;
     }
+
+    const q = [];
+
     q.push(PossibleKnightMove(arr, getIndex(arr, startingPoint)));
 
     while (q.length !== 0) {
@@ -170,7 +171,6 @@ const Game = () => {
   const changeKnightPos = (destination) => {
     const data = knightMoves(knight, destination);
     knight = data[data.length - 1];
-    console.log(knight);
   };
 
   const announcePath = (data) => {
@@ -199,7 +199,9 @@ const Game = () => {
   };
 
   return {
-    knight,
+    get knight() {
+      return knight;
+    },
     chestBoard,
     showBoard,
     knightMoves,
@@ -210,4 +212,8 @@ const Game = () => {
 const game = Game();
 
 game.showBoard();
+game.knightMoves([0, 0], [7, 7]);
 game.changeKnightPos([7, 7]);
+console.log(game.knight);
+game.changeKnightPos([0, 0]);
+console.log(game.knight);
